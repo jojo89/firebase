@@ -1,4 +1,6 @@
-var myDataRef = new Firebase('https://the-war-room.firebaseio.com/');
+
+
+var myDataRef = new Firebase('https://bemorecareful.firebaseio.com/');
 
 function moveNorthInfo(){
   var index = $('table tr').find('.active').index();
@@ -141,18 +143,17 @@ function randomTd(){
   var randomRow = $('tbody').find('tr:nth-child('+ randomRowNumber +')');
   var length=randomRow.find(':last-child').index() + 1;
   var randomColNumber=Math.floor((Math.random()*length)+1);
-  console.log(randomColNumber)
-  var pointer = randomRow.find(':nth-child('+ randomColNumber+')');
-  pointer.addClass('point');
-  myDataRef.push({randCol:length, randRow: randomRowNumber});
+  myDataRef.push({randCol:randomColNumber, randRow: randomRowNumber});
 }
 
 function rando(data){
     var parent = $('table').find( 'tr:eq('+data.randRow+')' );
     var cell = parent.find('td:nth-child('+ data.randCol +')');
+    console.log(cell)
     cell.addClass('point');
     if(cell.hasClass('player1score')== false){
       if(cell.css("background-color") == "rgb(255, 165, 0)" ){
+        console.log(cell.css("background-color"));
         cell.css("background-color","yellow");
       }
       else
@@ -160,40 +161,24 @@ function rando(data){
         cell.css("background-color","orange");
       }
     }
-    else
-    {
-         cell.removeAttr('style');
-    }  
+    // else
+    // {
+    //      cell.removeAttr('style');
+    // }  
 }
 
-function push(){
-  myDataRef.on('child_added', function(snapshot) {
-    var data = snapshot.val()
-    rando(data);
-    if (snapshot.val().from == "south"){
-      south(data);
-    }
-    else if(snapshot.val().from == "north"){
-      north(data); 
-    }
-    else if(snapshot.val().from == "east"){
-      east(data);
-    }
-    else{
-      west(data);
-    }
-  });
-};
+
 
 
 
 
 
 $(document).ready(function() {
+ 
+  
   setInterval(function(){
     randomTd();
   },3000)
-  push();
   $(document).keyup(function (e) {
         if (e.keyCode == 40) {
           moveSouthInfo();
@@ -215,6 +200,25 @@ $(document).ready(function() {
           moveWestInfo();
        }
     });
+
+  myDataRef.on('child_added', function(snapshot) {
+    var data = snapshot.val()
+    if (snapshot.val().from == "south"){
+      south(data);
+    }
+    else if(snapshot.val().from == "north"){
+      north(data); 
+    }
+    else if(snapshot.val().from == "east"){
+      east(data);
+    }
+    else if(snapshot.val().from == "west"){
+      west(data);
+    }
+    else{
+       rando(data);
+    }
+  });
 });
 
 
