@@ -1,12 +1,65 @@
 var myDataRef = new Firebase('https://the-war-room.firebaseio.com/');
-function moveEast(){
-  var cell = $('table tr').find('.active');
-  var nextCell = $('table tr').find('.active').next();
-  var parent = $('table tr').find('.active').parent();
-  var lastChild = parent.find(':last-child');
-  if(lastChild.hasClass('active')){
-  }else{
-   if(nextCell.hasClass('point')){
+
+function moveNorthInfo(){
+  var index = $('table tr').find('.active').index();
+  var nthPlace = index + 1
+  var parentIndex = $('table tr').find('.active').parent().index();
+  var parent = $('table tr').find('.active').parent()
+  var nextRow = parent.prev().index();
+  var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')');
+  myDataRef.push({from:"north",cellIndex: index, nextCell: nthPlace, parentIndex:parentIndex,nextRowIndex:nextRow})
+}
+
+
+function north(data){
+  var parent = $('table').find( 'tr:eq('+data.parentIndex+')' )
+  var cellNumber = data.cellIndex + 1;
+  var cell = parent.find('td:nth-child('+ cellNumber +')');
+  var nextRow = parent.prev()
+  var nextCell = $(nextRow).find(':nth-child('+ cellNumber +')')
+  if(parent.index() == 0){
+    console.log("top")
+  }
+  else
+  {
+    if(nextCell.hasClass('point')){
+      nextCell.removeClass('point');
+      cell.removeClass('active');  
+      nextCell.addClass('player1score');
+      nextCell.addClass('active');
+    }
+    else
+    {
+      nextCell.addClass('active');
+      cell.removeClass('active');
+    }
+  }
+}
+
+
+function moveSouthInfo(){
+  var cell = $('table tr').find('.active').index();
+  var parentIndex = $('table tr').find('.active').parent().index();
+  var parent = $('table tr').find('.active').parent()
+  var nthPlace = cell + 1;
+  var nextRowIndex = parent.next().index();
+  var nextRow = parent.next();
+  var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')')
+  var mid = $('tbody').find('tr:last-child')
+  var bottom = $('tbody').find('tr:last-child').index()
+  myDataRef.push({from:"south",cellIndex: cell, nextRowIndex: nextRowIndex, parentIndex:parentIndex,nthPlace: nthPlace})
+}
+function south(data){
+  var parent = $('table').find( 'tr:eq('+data.parentIndex+')' )
+  var cellNumber=data.cellIndex + 1
+  var cell = parent.find('td:nth-child('+ cellNumber +')');
+  var nextRow = parent.next()
+  var nextCell = $(nextRow).find(':nth-child('+ cellNumber +')')
+  var bottom = $('tbody').find('tr:last-child').index()
+  //South
+  if(parent.index()==bottom){
+  }else{    
+     if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
        cell.removeClass('active'); 
        nextCell.addClass('player1score');
@@ -18,12 +71,54 @@ function moveEast(){
   }
 }
 
-function moveWest(){
-  var cell = $('table tr').find('.active');
-  var nextCell = $('table tr').find('.active').prev();
+function moveEastInfo(){
+  var cell = $('table tr').find('.active').index();
+  var nextCell = $('table tr').find('.active').next().index();
+  var parent = $('table tr').find('.active').parent()
+  var parentIndex = $('table tr').find('.active').parent().index();
+  var lastChild = parent.find(':last-child');
+  myDataRef.push({from:"east", cellIndex: cell, nextCellIndex: nextCell, parentIndex:parentIndex});
+}
+
+function east(data){
+  var parent = $('table').find( 'tr:eq('+data.parentIndex+')' );
+  var cellNumber=data.cellIndex + 1;
+  var cell = parent.find('td:nth-child('+ cellNumber +')');
+  var nextCell = cell.next()
+  var lastChild = parent.find(':last-child');
+  if(lastChild.hasClass('active')){
+    
+  }
+  else{
+   if(nextCell.hasClass('point')){
+       nextCell.removeClass('point') ;
+       cell.removeClass('active'); 
+       nextCell.addClass('player1score');
+       nextCell.addClass('active');
+    }
+    else{
+      nextCell.addClass('active');
+      cell.removeClass('active');
+    }
+  }
+}
+
+
+function moveWestInfo(){
+  var cell = $('table tr').find('.active').index();
+  var nextCell = $('table tr').find('.active').prev().index();
   var parent = $('table tr').find('.active').parent();
+  var parentIndex = $('table tr').find('.active').parent().index();
   var firstChild = parent.find(':first-child')
-  console.log(firstChild);
+  myDataRef.push({from:"west",cellIndex: cell, nextCellIndex: nextCell, parentIndex: parentIndex})
+}
+
+function west(data){
+  var parent = $('table').find( 'tr:eq('+data.parentIndex+')' );
+  var cellNumber=data.cellIndex + 1;
+  var cell = parent.find('td:nth-child('+ cellNumber +')');
+  var nextCell = cell.prev();
+  var firstChild = parent.find(':first-child');
   if(firstChild.hasClass('active')){
   }else{
    if(nextCell.hasClass('point')){
@@ -38,50 +133,7 @@ function moveWest(){
   }
 }
 
-function moveSouth(){
-  var cell = $('table tr').find('.active')
-  var parent = $('table tr').find('.active').parent();
-  var index = $('table tr').find('.active').index();
-  var nthPlace = index + 1;
-  var nextRow = parent.next();
-  var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')')
-  var mid = $('tbody').find('tr:last-child')
-  var bottom = $('tbody').find('tr:last-child').index()
-  if(parent.index()==bottom){
-  }else{    
-     if(nextCell.hasClass('point')){
-       nextCell.removeClass('point') ;
-       cell.removeClass('active'); 
-       nextCell.addClass('player1score');
-       nextCell.addClass('active');
-    }else{
-      nextCell.addClass('active');
-      cell.removeClass('active');
-    }
-  }
-}  
-function moveNorth(){
-  var cell = $('table tr').find('.active');
-  var index = $('table tr').find('.active').index();
-  var nthPlace = index + 1
-  var parent = $('table tr').find('.active').parent();
-  var nextRow = parent.prev();
-  var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')');
-  
-  if(parent.index() == 0){
-    console.log("top")
-  }else{
-    if(nextCell.hasClass('point')){
-      nextCell.removeClass('point');
-      cell.removeClass('active');  
-      nextCell.addClass('player1score');
-      nextCell.addClass('active');
-    }else{
-      nextCell.addClass('active');
-      cell.removeClass('active');
-    }
-  }
-}
+
 
 function randomTd(){
   var bottom = $('tbody').find('tr:last-child').index() + 1;
@@ -92,62 +144,80 @@ function randomTd(){
   console.log(randomColNumber)
   var pointer = randomRow.find(':nth-child('+ randomColNumber+')');
   pointer.addClass('point');
-
-  setInterval(function(){
-    if(pointer.hasClass('player1score')== false){
-      if(pointer.css("background-color") == "rgb(255, 165, 0)" ){
-        pointer.css("background-color","yellow");
-      }else{
-        pointer.css("background-color","orange");
-      }
-    }else{
-         pointer.removeAttr('style');
-    }  
-  },300);
+  myDataRef.push({randCol:length, randRow: randomRowNumber});
 }
 
+function rando(data){
+    var parent = $('table').find( 'tr:eq('+data.randRow+')' );
+    var cell = parent.find('td:nth-child('+ data.randCol +')');
+    cell.addClass('point');
+    if(cell.hasClass('player1score')== false){
+      if(cell.css("background-color") == "rgb(255, 165, 0)" ){
+        cell.css("background-color","yellow");
+      }
+      else
+      {
+        cell.css("background-color","orange");
+      }
+    }
+    else
+    {
+         cell.removeAttr('style');
+    }  
+}
+
+function push(){
+  myDataRef.on('child_added', function(snapshot) {
+    var data = snapshot.val()
+    rando(data);
+    if (snapshot.val().from == "south"){
+      south(data);
+    }
+    else if(snapshot.val().from == "north"){
+      north(data); 
+    }
+    else if(snapshot.val().from == "east"){
+      east(data);
+    }
+    else{
+      west(data);
+    }
+  });
+};
 
 
 
-// myDataRef.on('child_added', function(snapshot) {
-//   var message = snapshot.val();
-// });
 
 
 $(document).ready(function() {
   setInterval(function(){
     randomTd();
   },3000)
-	$(document).keyup(function (e) {
+  push();
+  $(document).keyup(function (e) {
         if (e.keyCode == 40) {
-          moveSouth();
+          moveSouthInfo();
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 38) {
-          moveNorth();
+          moveNorthInfo();
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 39) {
-          moveEast();
+
+          moveEastInfo();
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 37) {
-          moveWest();
+          moveWestInfo();
        }
     });
 });
 
 
 
-function displayChatMessage(name, text){
-	$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-    $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-};
-function setText(){
-	var name = $('#nameInput').val();
-	var text = $('#messageInput').val();
-    myDataRef.push({name: name, text: text});
-}
+
+
