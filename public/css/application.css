@@ -12,7 +12,10 @@ td {
 	height:25px;
 	border: 5px solid black;
 }
-.active {
+.active1 {
+	background: red;
+}
+.active2 {
 	background: red;
 }
 .point{
@@ -20,4 +23,7 @@ td {
 }
 .player1score{
 	background: red;
+}
+.player2score{
+	background: blue;
 }

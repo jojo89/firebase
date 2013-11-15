@@ -3,10 +3,10 @@
 var myDataRef = new Firebase('https://bemorecareful.firebaseio.com/');
 
 function moveNorthInfo(){
-  var index = $('table tr').find('.active').index();
+  var index = $('table tr').find(active).index();
   var nthPlace = index + 1
-  var parentIndex = $('table tr').find('.active').parent().index();
-  var parent = $('table tr').find('.active').parent()
+  var parentIndex = $('table tr').find(active).parent().index();
+  var parent = $('table tr').find(active).parent()
   var nextRow = parent.prev().index();
   var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')');
   myDataRef.push({from:"north",cellIndex: index, nextCell: nthPlace, parentIndex:parentIndex,nextRowIndex:nextRow})
@@ -25,23 +25,23 @@ function north(data){
   {
     if(nextCell.hasClass('point')){
       nextCell.removeClass('point');
-      cell.removeClass('active');  
-      nextCell.addClass('player1score');
-      nextCell.addClass('active');
+      cell.removeClass(active);  
+      nextCell.addClass(score);
+      nextCell.addClass(active);
     }
     else
     {
-      nextCell.addClass('active');
-      cell.removeClass('active');
+      nextCell.addClass(active);
+      cell.removeClass(active);
     }
   }
 }
 
 
 function moveSouthInfo(){
-  var cell = $('table tr').find('.active').index();
-  var parentIndex = $('table tr').find('.active').parent().index();
-  var parent = $('table tr').find('.active').parent()
+  var cell = $('table tr').find(active).index();
+  var parentIndex = $('table tr').find(active).parent().index();
+  var parent = $('table tr').find(active).parent()
   var nthPlace = cell + 1;
   var nextRowIndex = parent.next().index();
   var nextRow = parent.next();
@@ -61,21 +61,21 @@ function south(data){
   }else{    
      if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass('active'); 
-       nextCell.addClass('player1score');
-       nextCell.addClass('active');
+       cell.removeClass(active); 
+       nextCell.addClass(score);
+       nextCell.addClass(active);
     }else{
-      nextCell.addClass('active');
-      cell.removeClass('active');
+      nextCell.addClass(active);
+      cell.removeClass(active);
     }
   }
 }
 
 function moveEastInfo(){
-  var cell = $('table tr').find('.active').index();
-  var nextCell = $('table tr').find('.active').next().index();
-  var parent = $('table tr').find('.active').parent()
-  var parentIndex = $('table tr').find('.active').parent().index();
+  var cell = $('table tr').find(active).index();
+  var nextCell = $('table tr').find(active).next().index();
+  var parent = $('table tr').find(active).parent()
+  var parentIndex = $('table tr').find(active).parent().index();
   var lastChild = parent.find(':last-child');
   myDataRef.push({from:"east", cellIndex: cell, nextCellIndex: nextCell, parentIndex:parentIndex});
 }
@@ -86,29 +86,31 @@ function east(data){
   var cell = parent.find('td:nth-child('+ cellNumber +')');
   var nextCell = cell.next()
   var lastChild = parent.find(':last-child');
-  if(lastChild.hasClass('active')){
+  if(lastChild.hasClass(active)){
     
   }
   else{
    if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass('active'); 
-       nextCell.addClass('player1score');
-       nextCell.addClass('active');
+       cell.removeClass(active); 
+       nextCell.addClass(score);
+       nextCell.addClass(active);
     }
     else{
-      nextCell.addClass('active');
-      cell.removeClass('active');
+      nextCell.addClass(active);
+      cell.removeClass(active);
     }
   }
 }
 
 
 function moveWestInfo(){
-  var cell = $('table tr').find('.active').index();
-  var nextCell = $('table tr').find('.active').prev().index();
-  var parent = $('table tr').find('.active').parent();
-  var parentIndex = $('table tr').find('.active').parent().index();
+  console.log(active)
+  var cell = $('table tr').find(active).index();
+  console.log(cell)
+  var nextCell = $('table tr').find(active).prev().index();
+  var parent = $('table tr').find(active).parent();
+  var parentIndex = $('table tr').find(active).parent().index();
   var firstChild = parent.find(':first-child')
   myDataRef.push({from:"west",cellIndex: cell, nextCellIndex: nextCell, parentIndex: parentIndex})
 }
@@ -119,16 +121,16 @@ function west(data){
   var cell = parent.find('td:nth-child('+ cellNumber +')');
   var nextCell = cell.prev();
   var firstChild = parent.find(':first-child');
-  if(firstChild.hasClass('active')){
+  if(firstChild.hasClass(active)){
   }else{
    if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass('active'); 
-       nextCell.addClass('player1score');
-       nextCell.addClass('active');
+       cell.removeClass(active); 
+       nextCell.addClass(score);
+       nextCell.addClass(active);
     }else{
-      nextCell.addClass('active');
-      cell.removeClass('active');
+      nextCell.addClass(active);
+      cell.removeClass(active);
     }
   }
 }
@@ -149,7 +151,7 @@ function rando(data){
     var cell = parent.find('td:nth-child('+ data.randCol +')');
     cell.addClass('point');
     setInterval(function(){
-      if(cell.hasClass('player1score')== false){
+      if(cell.hasClass(score)== false){
       if(cell.css("background-color") == "rgb(255, 165, 0)" ){
         cell.css("background-color","yellow");
       }else{
@@ -171,9 +173,12 @@ $(document).ready(function() {
   myDataRef.remove();
   var log = $('.number').text();
   if(log == 1){
-    colorNumber="red"
+    active='active1'
+    score='player1score'
   }else{
-    colorNumber="blue"
+
+    active='active2'
+    score='player2score'
   }
   
   setInterval(function(){
@@ -204,15 +209,19 @@ $(document).ready(function() {
   myDataRef.on('child_added', function(snapshot) {
     var data = snapshot.val()
     if (snapshot.val().from == "south"){
+
       south(data);
     }
     else if(snapshot.val().from == "north"){
+
       north(data); 
     }
     else if(snapshot.val().from == "east"){
+
       east(data);
     }
     else if(snapshot.val().from == "west"){
+
       west(data);
     }
     else{
