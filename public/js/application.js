@@ -25,14 +25,14 @@ function north(data){
   {
     if(nextCell.hasClass('point')){
       nextCell.removeClass('point');
-      cell.removeClass(active);  
+      cell.removeClass(classString);  
       nextCell.addClass(score);
-      nextCell.addClass(active);
+      nextCell.addClass(classString);
     }
     else
     {
-      nextCell.addClass(active);
-      cell.removeClass(active);
+      nextCell.addClass(classString);
+      cell.removeClass(classString);
     }
   }
 }
@@ -61,12 +61,12 @@ function south(data){
   }else{    
      if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass(active); 
+       cell.removeClass(classString); 
        nextCell.addClass(score);
-       nextCell.addClass(active);
+       nextCell.addClass(classString);
     }else{
-      nextCell.addClass(active);
-      cell.removeClass(active);
+      nextCell.addClass(classString);
+      cell.removeClass(classString);
     }
   }
 }
@@ -86,19 +86,19 @@ function east(data){
   var cell = parent.find('td:nth-child('+ cellNumber +')');
   var nextCell = cell.next()
   var lastChild = parent.find(':last-child');
-  if(lastChild.hasClass(active)){
+  if(lastChild.hasClass(classString)){
     
   }
   else{
    if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass(active); 
+       cell.removeClass(classString); 
        nextCell.addClass(score);
-       nextCell.addClass(active);
+       nextCell.addClass(classString);
     }
     else{
-      nextCell.addClass(active);
-      cell.removeClass(active);
+      nextCell.addClass(classString);
+      cell.removeClass(classString);
     }
   }
 }
@@ -121,16 +121,16 @@ function west(data){
   var cell = parent.find('td:nth-child('+ cellNumber +')');
   var nextCell = cell.prev();
   var firstChild = parent.find(':first-child');
-  if(firstChild.hasClass(active)){
+  if(firstChild.hasClass(classString)){
   }else{
    if(nextCell.hasClass('point')){
        nextCell.removeClass('point') ;
-       cell.removeClass(active); 
+       cell.removeClass(classString); 
        nextCell.addClass(score);
-       nextCell.addClass(active);
+       nextCell.addClass(classString);
     }else{
-      nextCell.addClass(active);
-      cell.removeClass(active);
+      nextCell.addClass(classString);
+      cell.removeClass(classString);
     }
   }
 }
@@ -173,12 +173,13 @@ $(document).ready(function() {
   myDataRef.remove();
   var log = $('.number').text();
   if(log == 1){
-    active='active1'
+    active='.active1'
     score='player1score'
+    classString='active1'
   }else{
-
-    active='active2'
+    active='.active2'
     score='player2score'
+    classString='active2'
   }
   
   setInterval(function(){

@@ -1,14 +1,19 @@
+get '/' do
+  erb :index
+end	
+
+
 
 
 get '/game1' do
   
   
-   erb :index1
+   erb :p1
 end
 
-get '/' do
+get '/game2' do
   
-   erb :index2
+   erb :p2
 end
 
 
