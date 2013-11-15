@@ -20,7 +20,6 @@ function north(data){
   var nextRow = parent.prev()
   var nextCell = $(nextRow).find(':nth-child('+ cellNumber +')')
   if(parent.index() == 0){
-    console.log("top")
   }
   else
   {
@@ -58,7 +57,6 @@ function south(data){
   var nextRow = parent.next()
   var nextCell = $(nextRow).find(':nth-child('+ cellNumber +')')
   var bottom = $('tbody').find('tr:last-child').index()
-  //South
   if(parent.index()==bottom){
   }else{    
      if(nextCell.hasClass('point')){
@@ -149,22 +147,18 @@ function randomTd(){
 function rando(data){
     var parent = $('table').find( 'tr:eq('+data.randRow+')' );
     var cell = parent.find('td:nth-child('+ data.randCol +')');
-    console.log(cell)
     cell.addClass('point');
-    if(cell.hasClass('player1score')== false){
+    setInterval(function(){
+      if(cell.hasClass('player1score')== false){
       if(cell.css("background-color") == "rgb(255, 165, 0)" ){
-        console.log(cell.css("background-color"));
         cell.css("background-color","yellow");
-      }
-      else
-      {
+      }else{
         cell.css("background-color","orange");
       }
-    }
-    // else
-    // {
-    //      cell.removeAttr('style');
-    // }  
+    }else{
+         cell.removeAttr('style');
+    }  
+  },300);
 }
 
 
@@ -174,7 +168,13 @@ function rando(data){
 
 
 $(document).ready(function() {
- 
+  myDataRef.remove();
+  var log = $('.number').text();
+  if(log == 1){
+    colorNumber="red"
+  }else{
+    colorNumber="blue"
+  }
   
   setInterval(function(){
     randomTd();
