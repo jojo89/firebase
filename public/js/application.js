@@ -2,14 +2,14 @@
 
 var myDataRef = new Firebase('https://bemorecareful.firebaseio.com/');
 
-function moveNorthInfo(){
+function moveNorthInfo(playerNumber){
   var index = $('table tr').find(active).index();
   var nthPlace = index + 1
   var parentIndex = $('table tr').find(active).parent().index();
   var parent = $('table tr').find(active).parent()
   var nextRow = parent.prev().index();
   var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')');
-  myDataRef.push({from:"north",cellIndex: index, nextCell: nthPlace, parentIndex:parentIndex,nextRowIndex:nextRow})
+  myDataRef.push({player:playerNumber,from:"north",cellIndex: index, nextCell: nthPlace, parentIndex:parentIndex,nextRowIndex:nextRow})
 }
 
 
@@ -38,7 +38,7 @@ function north(data){
 }
 
 
-function moveSouthInfo(){
+function moveSouthInfo(playerNumber){
   var cell = $('table tr').find(active).index();
   var parentIndex = $('table tr').find(active).parent().index();
   var parent = $('table tr').find(active).parent()
@@ -48,7 +48,7 @@ function moveSouthInfo(){
   var nextCell = $(nextRow).find(':nth-child('+ nthPlace +')')
   var mid = $('tbody').find('tr:last-child')
   var bottom = $('tbody').find('tr:last-child').index()
-  myDataRef.push({from:"south",cellIndex: cell, nextRowIndex: nextRowIndex, parentIndex:parentIndex,nthPlace: nthPlace})
+  myDataRef.push({player:playerNumber,from:"south",cellIndex: cell, nextRowIndex: nextRowIndex, parentIndex:parentIndex,nthPlace: nthPlace})
 }
 function south(data){
   var parent = $('table').find( 'tr:eq('+data.parentIndex+')' )
@@ -71,13 +71,13 @@ function south(data){
   }
 }
 
-function moveEastInfo(){
+function moveEastInfo(playerNumber){
   var cell = $('table tr').find(active).index();
   var nextCell = $('table tr').find(active).next().index();
   var parent = $('table tr').find(active).parent()
   var parentIndex = $('table tr').find(active).parent().index();
   var lastChild = parent.find(':last-child');
-  myDataRef.push({from:"east", cellIndex: cell, nextCellIndex: nextCell, parentIndex:parentIndex});
+  myDataRef.push({player:playerNumber,from:"east", cellIndex: cell, nextCellIndex: nextCell, parentIndex:parentIndex});
 }
 
 function east(data){
@@ -104,7 +104,7 @@ function east(data){
 }
 
 
-function moveWestInfo(){
+function moveWestInfo(playerNumber){
   console.log(active)
   var cell = $('table tr').find(active).index();
   console.log(cell)
@@ -112,7 +112,7 @@ function moveWestInfo(){
   var parent = $('table tr').find(active).parent();
   var parentIndex = $('table tr').find(active).parent().index();
   var firstChild = parent.find(':first-child')
-  myDataRef.push({from:"west",cellIndex: cell, nextCellIndex: nextCell, parentIndex: parentIndex})
+  myDataRef.push({player:playerNumber,from:"west",cellIndex: cell, nextCellIndex: nextCell, parentIndex: parentIndex})
 }
 
 function west(data){
@@ -151,7 +151,7 @@ function rando(data){
     var cell = parent.find('td:nth-child('+ data.randCol +')');
     cell.addClass('point');
     setInterval(function(){
-      if(cell.hasClass(score)== false){
+      if(cell.hasClass('active1') || cell.hasClass('active2' == false)){
       if(cell.css("background-color") == "rgb(255, 165, 0)" ){
         cell.css("background-color","yellow");
       }else{
@@ -163,6 +163,10 @@ function rando(data){
   },300);
 }
 
+function setupBoard(playerNumber){
+    myDataRef.push({set:playerNumber})
+}
+ 
 
 
 
@@ -171,44 +175,47 @@ function rando(data){
 
 $(document).ready(function() {
   myDataRef.remove();
-  var log = $('.number').text();
-  if(log == 1){
-    active='.active1'
-    score='player1score'
-    classString='active1'
-  }else{
-    active='.active2'
-    score='player2score'
-    classString='active2'
-  }
-  
+  var playerNumber = $('.number').text();
+  setupBoard(playerNumber);
   setInterval(function(){
     randomTd();
   },3000)
   $(document).keyup(function (e) {
         if (e.keyCode == 40) {
-          moveSouthInfo();
+          moveSouthInfo(playerNumber);
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 38) {
-          moveNorthInfo();
+          moveNorthInfo(playerNumber);
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 39) {
 
-          moveEastInfo();
+          moveEastInfo(playerNumber);
        }
     });
     $(document).keyup(function (e) {
         if (e.keyCode == 37) {
-          moveWestInfo();
+          moveWestInfo(playerNumber);
        }
     });
 
   myDataRef.on('child_added', function(snapshot) {
     var data = snapshot.val()
+    if(data.player == 1)
+    {
+    active='.active1'
+    score='player1score'
+    classString='active1'
+    }
+    else
+    {
+    active='.active2'
+    score='player2score'
+    classString='active2'
+    }
     if (snapshot.val().from == "south"){
 
       south(data);
@@ -225,7 +232,16 @@ $(document).ready(function() {
 
       west(data);
     }
-    else{
+    else if(data.set == 1 ){
+      var row = $('table tr').first();
+      row.find('td:first-child').addClass('active1')
+    }
+    else if(data.set == 2 ){
+      var row = $('table tr').last();
+      row.find('td:last-child').addClass('active2')
+    }
+    else
+    {
        rando(data);
     }
   });
