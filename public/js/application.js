@@ -128,7 +128,14 @@ function west(data){
        cell.removeClass(classString); 
        nextCell.addClass(score);
        nextCell.addClass(classString);
-    }else{
+    }
+    // else if(nextCell.hasClass('player1score') || nextCell.hasClass('player2score'))
+    // {
+    //   cell.removeClass(classString); 
+    //   nextCell.addClass(classString);
+    // }
+    else
+    {
       nextCell.addClass(classString);
       cell.removeClass(classString);
     }
@@ -151,23 +158,6 @@ function rando(data){
     var cell = parent.find('td:nth-child('+ data.randCol +')');
     if(cell.hasClass('player1score') == false || cell.hasClass('player2score') == false){
       cell.addClass('point');
-      // setInterval(function(){
-      //   if(cell.hasClass('active1') || cell.hasClass('active2') == false)
-      //   {
-      //     if(cell.css("background-color") == "rgb(255, 165, 0)" )
-      //     {
-      //       cell.css("background-color","yellow");
-      //     }
-      //     else
-      //     {
-      //       cell.css("background-color","rgb(255, 165, 0)");
-      //     }
-      //   }
-      //   else
-      //   {
-      //    cell.removeAttr('style');
-      //   }  
-      // },300);     
     }  
 }
 
@@ -175,8 +165,25 @@ function setupBoard(playerNumber){
     myDataRef.push({set:playerNumber})
 }
  
-
-
+function flasherTd(){
+      setInterval(function(){
+        if(cell.hasClass('active1') || cell.hasClass('active2') == false)
+        {
+          if(cell.css("background-color") == "rgb(255, 165, 0)" )
+          {
+            cell.css("background-color","yellow");
+          }
+          else
+          {
+            cell.css("background-color","rgb(255, 165, 0)");
+          }
+        }
+        else
+        {
+         cell.removeAttr('style');
+        }  
+      },300);   
+}   
 
 
 
