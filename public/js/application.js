@@ -149,18 +149,26 @@ function randomTd(){
 function rando(data){
     var parent = $('table').find( 'tr:eq('+data.randRow+')' );
     var cell = parent.find('td:nth-child('+ data.randCol +')');
-    cell.addClass('point');
-    setInterval(function(){
-      if(cell.hasClass('active1') || cell.hasClass('active2' == false)){
-      if(cell.css("background-color") == "rgb(255, 165, 0)" ){
-        cell.css("background-color","yellow");
-      }else{
-        cell.css("background-color","orange");
-      }
-    }else{
-         cell.removeAttr('style');
+    if(cell.hasClass('player1score') == false || cell.hasClass('player2score') == false){
+      cell.addClass('point');
+      // setInterval(function(){
+      //   if(cell.hasClass('active1') || cell.hasClass('active2') == false)
+      //   {
+      //     if(cell.css("background-color") == "rgb(255, 165, 0)" )
+      //     {
+      //       cell.css("background-color","yellow");
+      //     }
+      //     else
+      //     {
+      //       cell.css("background-color","rgb(255, 165, 0)");
+      //     }
+      //   }
+      //   else
+      //   {
+      //    cell.removeAttr('style');
+      //   }  
+      // },300);     
     }  
-  },300);
 }
 
 function setupBoard(playerNumber){
