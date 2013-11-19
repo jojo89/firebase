@@ -101,30 +101,35 @@ function south(data){
   }
 }
 
+
 function checker(){
   var firstRow = $('table tr').first();
   var currentCell = firstRow.find('td:first-child')
-  var lastCell = $('table tr').last();
-  var currentCell = firstRow.find('td:last-child')
+  var lastRow = $('table tr').last();
+  var lastChild = firstRow.find('td:last-child')
   while(currentCell.hasClass('player1score') || currentCell.hasClass('player2score')){
+    console.log("dogs")
     if(currentCell == lastChild)
     {
-     console.log('game over')
-    } 
+     console.log('game over');
+    }
     else
     {
-      if(currentCell.last())
+      console.log(currentCell.index());
+      console.log(currentCell.parent().index());
+      if(currentCell.is(':last-child'))
       {
-        var firstRow = firstRow.next()
-        var currentCell = firstRow.find('td:first-child')
+        var firstRow = firstRow.next();
+        var currentCell = firstRow.find('td:first-child');
       }
       else
       {
-        currentCell = currentCell.next();
+        var currentCell = currentCell.next();
       }
     }
   }
 }
+
 
 
 
@@ -276,7 +281,8 @@ $(document).ready(function() {
     });
 
   myDataRef.on('child_added', function(snapshot) {
-    var data = snapshot.val()
+    checker()
+    var data = snapshot.val();
     if(data.player == 1)
     {
       active='.active1'
