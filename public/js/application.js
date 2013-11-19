@@ -101,6 +101,27 @@ function south(data){
   }
 }
 
+function checker(){
+  var firstRow = $('table tr').first();
+  var currentCell = firstRow.find('td:first-child')
+  var lastCell = $('table tr').last();
+  var currentCell = firstRow.find('td:last-child')
+  while(currentCell.hasClass('player1score') || currentCell.hasClass('player2score')){
+    if(currentCell == lastChild)
+    {
+     
+    } 
+    else
+    {
+      if(currentCell.last())
+      currentCell = currentCell.next()
+    }
+  }
+}
+
+
+
+
 
 function east(data){
   var parent = $('table').find( 'tr:eq('+data.parentIndex+')' );
@@ -213,9 +234,6 @@ function flasherTd(cell){
         }  
       },300);   
 }   
-
-
-
 
 $(document).ready(function() {
   myDataRef.remove();

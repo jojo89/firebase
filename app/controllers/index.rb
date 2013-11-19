@@ -2,9 +2,6 @@ get '/' do
   erb :index
 end	
 
-
-
-
 get '/game1' do
   
   
