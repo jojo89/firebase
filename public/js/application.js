@@ -154,7 +154,7 @@ function west(data){
 function randomTd(){
   var bottom = $('tbody').find('tr:last-child').index() + 1;
   var randomRowNumber = Math.floor((Math.random()*bottom))
-  var randomRow = $('tbody').find('tr:nth-child('+ randomRowNumber +')');
+  var randomRow = $('tbody').find('tr:nth-child(1)');
   var length=randomRow.find(':last-child').index() + 1;
   var randomColNumber=Math.floor((Math.random()*length)+1);
   myDataRef.push({randCol:randomColNumber, randRow: randomRowNumber});
@@ -167,9 +167,6 @@ function rando(data){
 
     console.log(data.randRow)
     console.log(data.randCol)
-    
-    console.log(parent.index() + 1);
-    console.log(cell.index() + 1);
     
     var statusSquare = cell.hasClass('player1score') == false && cell.hasClass('player2score') == false;
 
