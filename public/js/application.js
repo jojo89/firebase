@@ -109,12 +109,19 @@ function checker(){
   while(currentCell.hasClass('player1score') || currentCell.hasClass('player2score')){
     if(currentCell == lastChild)
     {
-     
+     console.log('game over')
     } 
     else
     {
       if(currentCell.last())
-      currentCell = currentCell.next()
+      {
+        var firstRow = firstRow.next()
+        var currentCell = firstRow.find('td:first-child')
+      }
+      else
+      {
+        currentCell = currentCell.next();
+      }
     }
   }
 }
