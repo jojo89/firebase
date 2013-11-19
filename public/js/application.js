@@ -163,16 +163,10 @@ function randomTd(){
 function rando(data){
     var parent = $('table').find( 'tr:eq('+data.randRow+')' );
     var cell = parent.find('td:nth-child('+ data.randCol +')');
-    
-
-    console.log(data.randRow)
-    console.log(data.randCol)
-    
     var statusSquare = cell.hasClass('player1score') == false && cell.hasClass('player2score') == false;
-
     if(statusSquare){
-
       cell.addClass('point');
+      flasherTd(cell);
     }  
 }
 
@@ -200,25 +194,25 @@ function findDirection(data){
 }
 
  
-// function flasherTd(){
-//       setInterval(function(){
-//         if(cell.hasClass('active1') || cell.hasClass('active2') == false)
-//         {
-//           if(cell.css("background-color") == "rgb(255, 165, 0)" )
-//           {
-//             cell.css("background-color","yellow");
-//           }
-//           else
-//           {
-//             cell.css("background-color","rgb(255, 165, 0)");
-//           }
-//         }
-//         else
-//         {
-//          cell.removeAttr('style');
-//         }  
-//       },300);   
-// }   
+function flasherTd(cell){
+      setInterval(function(){
+        if(cell.hasClass('player2score') == false && cell.hasClass('player1score') == false)
+        {
+          if(cell.css("background-color") == "rgb(255, 165, 0)" )
+          {
+            cell.css("background-color","yellow");
+          }
+          else
+          {
+            cell.css("background-color","rgb(255, 165, 0)");
+          }
+        }
+        else
+        {
+         cell.removeAttr('style');
+        }  
+      },300);   
+}   
 
 
 
