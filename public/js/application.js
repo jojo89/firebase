@@ -38,7 +38,6 @@ function moveSouthInfo(playerNumber){
 function moveWestInfo(playerNumber){
   setter(playerNumber);
   var cell = $('table tr').find(active).index();
-  console.log(cell)
   var nextCell = $('table tr').find(active).prev().index();
   var parent = $('table tr').find(active).parent();
   var parentIndex = $('table tr').find(active).parent().index();
@@ -154,7 +153,7 @@ function west(data){
 
 function randomTd(){
   var bottom = $('tbody').find('tr:last-child').index() + 1;
-  var randomRowNumber = Math.floor((Math.random()*bottom)+1)
+  var randomRowNumber = Math.floor((Math.random()*bottom))
   var randomRow = $('tbody').find('tr:nth-child('+ randomRowNumber +')');
   var length=randomRow.find(':last-child').index() + 1;
   var randomColNumber=Math.floor((Math.random()*length)+1);
@@ -164,8 +163,18 @@ function randomTd(){
 function rando(data){
     var parent = $('table').find( 'tr:eq('+data.randRow+')' );
     var cell = parent.find('td:nth-child('+ data.randCol +')');
+    
+
+    console.log(data.randRow)
+    console.log(data.randCol)
+    
+    console.log(parent.index() + 1);
+    console.log(cell.index() + 1);
+    
     var statusSquare = cell.hasClass('player1score') == false && cell.hasClass('player2score') == false;
+
     if(statusSquare){
+
       cell.addClass('point');
     }  
 }
