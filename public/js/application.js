@@ -3,11 +3,11 @@ var myDataRef = new Firebase('https://bemorecareful.firebaseio.com/');
 function setter(playerNumber){
   if(playerNumber == 1)
   {
-     active = 'active1'
+     active = '.active1'
   }
   else if(playerNumber == 2)
   {
-    active = 'active2'
+    active = '.active2'
   }
 }
 
@@ -229,7 +229,7 @@ $(document).ready(function() {
 
   $(document).keyup(function (e) {
         if (e.keyCode == 40) {
-          console.log("south")
+          
           moveSouthInfo(playerNumber);
        }
     });
