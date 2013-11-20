@@ -106,27 +106,28 @@ function checker(){
   var firstRow = $('table tr').first();
   var currentCell = firstRow.find('td:first-child')
   var lastRow = $('table tr').last();
-  var lastChild = firstRow.find('td:last-child')
+  var lastChild = lastRow.find('td:last-child')
+  var any = "j"
   while(currentCell.hasClass('player1score') || currentCell.hasClass('player2score')){
-    console.log("dogs")
-    if(currentCell == lastChild)
-    {
-     console.log('game over');
-    }
-    else
-    {
-      console.log(currentCell.index());
-      console.log(currentCell.parent().index());
       if(currentCell.is(':last-child'))
       {
-        var firstRow = firstRow.next();
-        var currentCell = firstRow.find('td:first-child');
+        var parent = currentCell.parent().index(); 
+        if(currentCell.index() == lastChild.index() && lastRow.index() == parent)
+        {
+          console.log("dao")
+          $('table').hide()
+        }
+        else
+        {  
+          var firstRow = firstRow.next();
+          var currentCell = firstRow.find('td:first-child');
+        }
       }
       else
       {
         var currentCell = currentCell.next();
+        var parent = currentCell.parent().index(); 
       }
-    }
   }
 }
 
@@ -255,7 +256,7 @@ $(document).ready(function() {
   setupBoard(playerNumber);
   setInterval(function(){
     randomTd();
-  },3000)
+  },100)
 
   $(document).keyup(function (e) {
         if (e.keyCode == 40) {
@@ -275,13 +276,13 @@ $(document).ready(function() {
        }
     });
     $(document).keyup(function (e) {
+      checker()
         if (e.keyCode == 37) {
           moveWestInfo(playerNumber);
        }
     });
 
   myDataRef.on('child_added', function(snapshot) {
-    checker()
     var data = snapshot.val();
     if(data.player == 1)
     {
