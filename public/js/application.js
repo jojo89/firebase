@@ -115,7 +115,9 @@ function checker(){
         if(currentCell.index() == lastChild.index() && lastRow.index() == parent)
         {
           console.log("dao")
-          $('table').hide()
+          $('tbody').hide()
+          break
+
         }
         else
         {  
