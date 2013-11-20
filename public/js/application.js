@@ -1,5 +1,6 @@
 var myDataRef = new Firebase('https://bemorecareful.firebaseio.com/');
 
+
 function setter(playerNumber){
   if(playerNumber == 1)
   {
@@ -70,6 +71,7 @@ function north(data){
       cell.removeClass(classString);  
       nextCell.addClass(score);
       nextCell.addClass(classString);
+      scoreKeeper(data);
     }
     else
     {
@@ -94,6 +96,7 @@ function south(data){
        cell.removeClass(classString); 
        nextCell.addClass(score);
        nextCell.addClass(classString);
+       scoreKeeper(data);
     }else{
       nextCell.addClass(classString);
       cell.removeClass(classString);
@@ -107,14 +110,12 @@ function checker(){
   var currentCell = firstRow.find('td:first-child')
   var lastRow = $('table tr').last();
   var lastChild = lastRow.find('td:last-child')
-  var any = "j"
   while(currentCell.hasClass('player1score') || currentCell.hasClass('player2score')){
       if(currentCell.is(':last-child'))
       {
         var parent = currentCell.parent().index(); 
         if(currentCell.index() == lastChild.index() && lastRow.index() == parent)
         {
-          console.log("dao")
           $('tbody').hide()
           break
 
@@ -135,6 +136,16 @@ function checker(){
 
 
 
+function scoreKeeper(data){
+  if(data.player == 1)
+  {
+    score1 = score1++
+  }
+  else if(data.player == 2)
+  {
+    score2= score2++
+  }  
+}
 
 
 
@@ -153,6 +164,9 @@ function east(data){
        cell.removeClass(classString); 
        nextCell.addClass(score);
        nextCell.addClass(classString);
+       scoreKeeper(data);
+       console.log(score1);
+
     }
     else{
       nextCell.addClass(classString);
@@ -176,6 +190,7 @@ function west(data){
        cell.removeClass(classString); 
        nextCell.addClass(score);
        nextCell.addClass(classString);
+       scoreKeeper(data);
     }
     else
     {
@@ -184,8 +199,6 @@ function west(data){
     }
   }
 }
-
-
 
 function randomTd(){
   var bottom = $('tbody').find('tr:last-child').index() + 1;
@@ -303,10 +316,12 @@ $(document).ready(function() {
     else if(data.set == 1 ){
       var row = $('table tr').first();
       row.find('td:first-child').addClass('active1')
+      score1 = 0
     }
     else if(data.set == 2 ){
       var row = $('table tr').last();
       row.find('td:last-child').addClass('active2')
+      score2 = 0
     }
     else
     {
