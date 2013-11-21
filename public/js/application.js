@@ -140,11 +140,12 @@ function scoreKeeper(data){
   if(data.player == 1)
   {
     score1 = score1 + 1
-    console.log(score1)
+    $("#player1").html(score1)
   }
   else if(data.player == 2)
   {
     score2= score2 + 1
+    $("#player2").html(score1)
   }  
 }
 

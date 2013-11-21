@@ -1,9 +1,10 @@
-.container {
-  margin: 20px auto;
-  width: 600px;
-  padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
+table{
+	margin-left:auto;
+	margin-right: auto;
+
 }
+
+
 th {
   text-align: left;
 }
@@ -11,6 +12,23 @@ td {
 	width: 25px;
 	height:25px;
 	border: 5px solid black;
+}
+.score{
+  display: inline;
+  margin: 33px;
+}
+
+
+.head{
+  display: inline;
+  margin: 113px;
+}
+.container {
+  text-align:center;
+  margin: 20px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 1px dotted black;
 }
 .active1 {
 	background: red;
