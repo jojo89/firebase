@@ -139,11 +139,12 @@ function checker(){
 function scoreKeeper(data){
   if(data.player == 1)
   {
-    score1 = score1++
+    score1 = score1 + 1
+    console.log(score1)
   }
   else if(data.player == 2)
   {
-    score2= score2++
+    score2= score2 + 1
   }  
 }
 
