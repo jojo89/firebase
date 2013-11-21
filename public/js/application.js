@@ -145,7 +145,7 @@ function scoreKeeper(data){
   else if(data.player == 2)
   {
     score2= score2 + 1
-    $("#player2").html(score1)
+    $("#player2").html(score2)
   }  
 }
 
