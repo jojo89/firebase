@@ -19,10 +19,17 @@ td {
 }
 
 
-.head{
+.head1{
   display: inline;
   margin: 113px;
 }
+.head2{
+  display: inline;
+  margin: 113px;
+}
+
+
+
 .container {
   text-align:center;
   margin: 20px auto;

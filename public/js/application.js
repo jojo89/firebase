@@ -116,13 +116,14 @@ function checker(){
         var parent = currentCell.parent().index(); 
         if(currentCell.index() == lastChild.index() && lastRow.index() == parent)
         {
-          if($('#player1').text() > $('#player').text())
+          if($('.head1').text() > $('.head2').text())
           {
-            $('tbody').replaceWith('<h2></h2>')
+            console.log($('.head1').text())
+            $('tbody').replaceWith('<h2>You Won</h2>')
           }
           else
           {
-            $('tbody').replaceWith('<h2></h2>')
+            $('tbody').replaceWith('<h2>You Lose</h2>')
           }
 
           break
