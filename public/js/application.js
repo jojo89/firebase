@@ -116,7 +116,15 @@ function checker(){
         var parent = currentCell.parent().index(); 
         if(currentCell.index() == lastChild.index() && lastRow.index() == parent)
         {
-          $('tbody').hide()
+          if($('#player1').text() > $('#player').text())
+          {
+            $('tbody').replaceWith('<h2></h2>')
+          }
+          else
+          {
+            $('tbody').replaceWith('<h2></h2>')
+          }
+
           break
 
         }
@@ -140,12 +148,12 @@ function scoreKeeper(data){
   if(data.player == 1)
   {
     score1 = score1 + 1
-    $("#player1").html(score1)
+    $("#player1").html(score1);
   }
   else if(data.player == 2)
   {
     score2= score2 + 1
-    $("#player2").html(score2)
+    $("#player2").html(score2);
   }  
 }
 
