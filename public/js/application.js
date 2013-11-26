@@ -275,7 +275,11 @@ function flasherTd(cell){
 }   
 
 $(document).ready(function() {
-  myDataRef.remove();
+
+  $('#reset').on('click',function(){
+    myDataRef.remove();  
+    $(this).css('background-color',"rgb(0, 196, 15)")
+  });
 
   var playerNumber = $('.number').text();
 

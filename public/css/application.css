@@ -3,6 +3,10 @@ body{
   background: rgb(255, 250, 136);
 }
 
+h2{
+  font-size:50px 
+}
+
 
 
 table{
@@ -20,6 +24,32 @@ td {
 	height:25px;
 	border: 5px solid black;
 }
+
+
+button {
+position: absolute;
+bottom: 10px;
+text-align: center;
+right: 284px;
+border: none;
+border-radius: 29px;
+font-size: 37px;
+padding: 7px 68px;
+color: white;
+background: rgb(255, 47, 47);
+}
+
+
+
+.home {
+position: relative;
+text-decoration: none;
+color:black;
+left: 42px;
+top: 20px;
+font-size: 26px;
+}
+
 .score{
   display: inline;
   margin: 33px;
@@ -52,9 +82,12 @@ font-size: 35px;
 
 
 .container {
+  position: relative;
+  top: 40px;
   text-align:center;
   margin: 20px auto;
   width: 850px;
+  height:300px;
   padding: 0px 20px 20px 20px;
 
 }
