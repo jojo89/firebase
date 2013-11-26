@@ -58,6 +58,7 @@ font-size: 26px;
 .main_header{
   font-size: 100px;
   text-align: center;
+  color:rgb(112, 109, 25);
 }
 
 
@@ -68,6 +69,10 @@ font-size: 26px;
 .head2{
   display: inline;
   margin: 113px;
+}
+
+.start:hover{
+  background: rgb(0, 196, 15);
 }
 
 .start {

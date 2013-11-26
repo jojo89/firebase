@@ -281,6 +281,24 @@ $(document).ready(function() {
     $(this).css('background-color',"rgb(0, 196, 15)")
   });
 
+  setInterval(function(){
+    if($('.main_header').css("color") == "rgb(112, 109, 25)")
+    {
+      $('.main_header').css("color","rgb(206, 200, 35)")
+      console.log('first')
+    }
+    else if($('.main_header').css("color") == "rgb(206, 200, 35)")
+    {
+      console.log('second')
+      $('.main_header').css("color","rgb(241, 234, 32)")
+    }
+    else
+    {
+      console.log("third")
+      $('.main_header').css("color","rgb(112, 109, 25)")
+    }  
+  },220);
+
   var playerNumber = $('.number').text();
 
   setupBoard(playerNumber);
