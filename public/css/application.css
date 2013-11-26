@@ -1,3 +1,10 @@
+body{
+  font-family: 'Lily Script One', cursive;
+  background: rgb(255, 250, 136);
+}
+
+
+
 table{
 	margin-left:auto;
 	margin-right: auto;
@@ -18,6 +25,11 @@ td {
   margin: 33px;
 }
 
+.main_header{
+  font-size: 75px;
+  text-align: center;
+}
+
 
 .head1{
   display: inline;
@@ -28,15 +40,25 @@ td {
   margin: 113px;
 }
 
+.start {
+text-decoration: none;
+padding: 19px 121px;
+background: rgb(248, 198, 69);
+color: white;
+border-radius: 11px;
+font-size: 35px;
+}
+
 
 
 .container {
   text-align:center;
   margin: 20px auto;
-  width: 600px;
+  width: 850px;
   padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
+
 }
+
 .active1 {
 	background: red;
 }
